@@ -43,6 +43,7 @@ const layout = [
 
 //create board
 function createBoard() {
+    
     for (let i = 0; i < layout.length; i++) {
 
         const square = document.createElement('div');
@@ -58,7 +59,6 @@ function createBoard() {
         } else if (layout[i] === 3) {
             squares[i].classList.add('power-pellet');
         }
-
     }
 }
 
@@ -69,26 +69,68 @@ let pacmanCurrentIndex = 490;
 
 let x = squares[pacmanCurrentIndex].classList.add('pacman');
 
+//move pacman
 function control(e) {
+    squares[pacmanCurrentIndex].classList.remove('pacman');
 
     switch (e.keyCode) {
         case 40:
             console.log('press down');
+            if (squares[pacmanCurrentIndex + 28].classList.contains('wall')){
+                pacmanCurrentIndex = pacmanCurrentIndex;
+            } else if (pacmanCurrentIndex + width < width * width){
+                pacmanCurrentIndex += width;
+            }
+            break;
 
-            break
         case 38:
             console.log('pressed up');
+            if (squares[pacmanCurrentIndex - 28].classList.contains('wall')){
+                pacmanCurrentIndex = pacmanCurrentIndex;
+            }else if (pacmanCurrentIndex - width >= 0){
+                pacmanCurrentIndex -= width;   
+            }
+            break;
 
-            break
         case 39:
             console.log('pressed right');
+            if (squares[pacmanCurrentIndex + 1].classList.contains('wall')){
+              pacmanCurrentIndex = pacmanCurrentIndex;   
+            }  else if (pacmanCurrentIndex % width < width - 1) {
+                pacmanCurrentIndex += 1;
+            } 
+            break;
 
-            break
         case 37:
             console.log('pressed left');
+            if (squares[pacmanCurrentIndex - 1].classList.contains('wall')){
+                pacmanCurrentIndex = pacmanCurrentIndex;   
+            }  else if (pacmanCurrentIndex % width !== 0) {
+                pacmanCurrentIndex -= 1;
+            } 
+            break;
 
-            break
+    }
+    squares[pacmanCurrentIndex].classList.add('pacman');
+}
+
+scoreDisplay.innerText = 0;
+let score = 0;
+//eat pellet and keep score
+function eatScore(){
+    // eat pac-dot 
+    if (squares[pacmanCurrentIndex].classList.contains('pac-dot')){
+        squares[pacmanCurrentIndex].classList.remove('pac-dot');
+        score += 10;
+        scoreDisplay.innerText = score;
     }
 }
 
-document.addEventListener('keyup', control);
+
+
+document.addEventListener('keyup', function(e){
+  //move pacman function
+  control(e);  
+  //eat pellets and keep score function
+  eatScore();
+} );
