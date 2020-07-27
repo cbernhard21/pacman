@@ -3,6 +3,14 @@
   padding: 10;
 }
 
+.container-flex {
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -32,7 +40,7 @@
 }
 
 .pacman {
-  background-color: orange;
+  background-color: purple;
   border-radius: 7.5px;
   border: none;
 }
