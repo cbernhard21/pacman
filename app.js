@@ -1,7 +1,9 @@
 const width = 28;
 const grid = document.querySelector('.grid');
 const scoreDisplay = document.querySelector('#score');
+scoreDisplay.innerText = 0;
 let squares = [];
+let score = 0;
 
 //28 * 28 = 784
 // 0 - pac-dots
@@ -56,7 +58,9 @@ function createBoard() {
             squares[i].classList.add('pac-dot');
         } else if (layout[i] === 1) {
             squares[i].classList.add('wall');
-        } else if (layout[i] === 3) {
+        }else if (layout[i] === 2) {
+            squares[i].classList.add('ghost-lair') 
+        }else if (layout[i] === 3) {
             squares[i].classList.add('power-pellet');
         }
     }
@@ -76,48 +80,64 @@ function control(e) {
     switch (e.keyCode) {
         case 40:
             console.log('press down');
-            if (squares[pacmanCurrentIndex + 28].classList.contains('wall')){
-                pacmanCurrentIndex = pacmanCurrentIndex;
-            } else if (pacmanCurrentIndex + width < width * width){
+            if (
+                !squares[pacmanCurrentIndex + width].classList.contains('wall') && 
+                !squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') &&
+                pacmanCurrentIndex + width < width * width
+                )
+                
                 pacmanCurrentIndex += width;
-            }
+    
             break;
 
         case 38:
             console.log('pressed up');
-            if (squares[pacmanCurrentIndex - 28].classList.contains('wall')){
-                pacmanCurrentIndex = pacmanCurrentIndex;
-            }else if (pacmanCurrentIndex - width >= 0){
+            if (
+                !squares[pacmanCurrentIndex - width].classList.contains('wall') && 
+                !squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&
+                pacmanCurrentIndex - width >= 0
+                )
                 pacmanCurrentIndex -= width;   
-            }
+                
             break;
 
         case 39:
             console.log('pressed right');
-            if (squares[pacmanCurrentIndex + 1].classList.contains('wall')){
-              pacmanCurrentIndex = pacmanCurrentIndex;   
-            }  else if (pacmanCurrentIndex % width < width - 1) {
+            if (
+                !squares[pacmanCurrentIndex + 1].classList.contains('wall') &&
+                !squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') &&
+                pacmanCurrentIndex % width < width - 1
+                )      
                 pacmanCurrentIndex += 1;
-            } 
+                if (pacmanCurrentIndex === 391){
+                    pacmanCurrentIndex = 364;
+                }
+           
             break;
 
         case 37:
             console.log('pressed left');
-            if (squares[pacmanCurrentIndex - 1].classList.contains('wall')){
-                pacmanCurrentIndex = pacmanCurrentIndex;   
-            }  else if (pacmanCurrentIndex % width !== 0) {
+            if (
+                !squares[pacmanCurrentIndex - 1].classList.contains('wall') && 
+                !squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') &&
+                pacmanCurrentIndex % width !== 0
+                )
                 pacmanCurrentIndex -= 1;
-            } 
-            break;
-
+                if (pacmanCurrentIndex === 364){
+                    pacmanCurrentIndex = 391;
+                }
+                break;
+                
     }
     squares[pacmanCurrentIndex].classList.add('pacman');
+    pacDotEaten();
 }
 
-scoreDisplay.innerText = 0;
-let score = 0;
+
+document.addEventListener('keyup', control);
+
 //eat pellet and keep score
-function eatScore(){
+function pacDotEaten(){
     // eat pac-dot 
     if (squares[pacmanCurrentIndex].classList.contains('pac-dot')){
         squares[pacmanCurrentIndex].classList.remove('pac-dot');
@@ -125,12 +145,3 @@ function eatScore(){
         scoreDisplay.innerText = score;
     }
 }
-
-
-
-document.addEventListener('keyup', function(e){
-  //move pacman function
-  control(e);  
-  //eat pellets and keep score function
-  eatScore();
-} );
