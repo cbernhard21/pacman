@@ -39,8 +39,12 @@
   border-radius: 7.5px;
 }
 
+.ghost-lair {
+  background-color: gray;
+}
+
 .pacman {
-  background-color: purple;
+  background-color: orange;
   border-radius: 7.5px;
   border: none;
 }
