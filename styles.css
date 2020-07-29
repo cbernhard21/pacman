@@ -34,17 +34,43 @@
   background-color: blue;
 }
 
+.ghost-lair {
+    background-color: #f0f0f0;
+}
+
 .power-pellet {
   background-color: green;
   border-radius: 7.5px;
 }
 
-.ghost-lair {
-  background-color: lightgrey;
-}
+
 
 .pacman {
   background-color: orange;
   border-radius: 7.5px;
   border: none;
+}
+
+.blink {
+    background-color: red;
+    border: none;
+}
+.pinky {
+    background-color: pink;
+    border: none;
+}
+
+.inky {
+    background-color: burlywood;
+    border: none;
+}
+
+.clyde {
+    background-color: aqua;
+    border: none;
+}
+
+.scared-ghost {
+    background-color: aquamarine;
+    border: none;
 }
