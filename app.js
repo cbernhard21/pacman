@@ -1,6 +1,7 @@
 const width = 28;
 const grid = document.querySelector('.grid');
 const scoreDisplay = document.querySelector('#score');
+const heading = document.querySelector('#heading');
 scoreDisplay.innerText = 0;
 let squares = [];
 let score = 0;
@@ -254,7 +255,7 @@ function checkForGameOver() {
         document.removeEventListener('keyup', control)
 
         //tell the user the game is over
-        scoreDisplay.innerHTML = 'Game Over';
+        heading.innerHTML = 'Game Over';
     }
 
 }
@@ -266,6 +267,6 @@ function checkForWin() {
         //remove the eventListener for the control function
         document.removeEventListener('keyup', control)
             //tell user they won
-        scoreDisplay.innerHTML = 'You win!';
+        heading.innerHTML = 'You win!';
     }
 }
