@@ -79,7 +79,7 @@ let x = squares[pacmanCurrentIndex].classList.add('pacman');
 
 //move pacman
 function control(e) {
-    squares[pacmanCurrentIndex].classList.remove('pacman');
+    squares[pacmanCurrentIndex].classList.remove('pacman', 'pacman-right', 'pacman-left', 'pacman-down', 'pacman-up');
 
     switch (e.keyCode) {
         case 40:
@@ -87,8 +87,8 @@ function control(e) {
                 !squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') &&
                 pacmanCurrentIndex + width < width * width
             )
-
                 pacmanCurrentIndex += width;
+                squares[pacmanCurrentIndex].classList.add('pacman-down');
 
             break;
 
@@ -98,6 +98,7 @@ function control(e) {
                 pacmanCurrentIndex - width >= 0
             )
                 pacmanCurrentIndex -= width;
+                squares[pacmanCurrentIndex].classList.add('pacman-up');
 
             break;
 
@@ -107,6 +108,7 @@ function control(e) {
                 pacmanCurrentIndex % width < width - 1
             )
                 pacmanCurrentIndex += 1;
+                squares[pacmanCurrentIndex].classList.add('pacman-right');
             if (pacmanCurrentIndex === 391) {
                 pacmanCurrentIndex = 364;
             }
@@ -119,6 +121,7 @@ function control(e) {
                 pacmanCurrentIndex % width !== 0
             )
                 pacmanCurrentIndex -= 1;
+                squares[pacmanCurrentIndex].classList.add('pacman-left');
             if (pacmanCurrentIndex === 364) {
                 pacmanCurrentIndex = 391;
             }
